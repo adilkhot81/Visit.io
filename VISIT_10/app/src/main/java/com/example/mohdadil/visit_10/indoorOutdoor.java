@@ -170,10 +170,43 @@ public class indoorOutdoor extends FragmentActivity implements OnMapReadyCallbac
                             .radius(1d)
                             .strokeWidth(0f)
                             .fillColor(Color.BLUE));
+                    if(location.isOutdoor()){
+                        SitumSdk.configuration().setApiKey(email.get(k), keys.get(k));
+                        //Toast.makeText(indoorOutdoor.this,email.get(k) , Toast.LENGTH_SHORT).show();
+                        k++;
+                        if(k==email.size()){
+                            k=0;
+                        }
+                    }
+                    else {
+                        //SitumSdk.init(indoorOutdoor.this);
+                        Toast.makeText(indoorOutdoor.this,"You were detected Indoors...Fetching The Indoor map" , Toast.LENGTH_SHORT).show();
+                        Intent mapActivity =new Intent(indoorOutdoor.this,MapsActivity.class);
+                        startActivity(mapActivity);
+                        finish();
+
+                    }
 
                 }else{
                     circle.setCenter(latLng);
+                    if(location.isOutdoor()){
+                        SitumSdk.configuration().setApiKey(email.get(k), keys.get(k));
+                        //Toast.makeText(indoorOutdoor.this,email.get(k) , Toast.LENGTH_SHORT).show();
+                        k++;
+                        if(k==email.size()){
+                            k=0;
+                        }
+                    }
+                    else {
+                        //SitumSdk.init(indoorOutdoor.this);
+                        Toast.makeText(indoorOutdoor.this,"You were detected Indoors...Fetching The Indoor map" , Toast.LENGTH_SHORT).show();
+                        Intent mapActivity =new Intent(indoorOutdoor.this,MapsActivity.class);
+                        startActivity(mapActivity);
+                        finish();
+
+                    }
                 }
+
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
 
             }
